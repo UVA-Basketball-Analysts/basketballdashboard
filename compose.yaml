@@ -1,0 +1,18 @@
+services:
+  jupyter:
+    # image, env, volumes, ports, etc ...
+    image: contransimage
+    env_file:
+      - .env
+    volumes: 
+      - ./:/UVA-Basketball-Analysts
+      - ./settings.txt:/root/.jupyter/lab/user-settings/@jupyterlab/notebook-extension/tracker.jupyterlab-settings
+    ports:
+      - "8889:8888"
+      - "8050:8050"
+    networks:
+     - dbnetwork
+ 
+ 
+networks:
+  dbnetwork:
