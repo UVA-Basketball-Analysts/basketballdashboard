@@ -1,7 +1,7 @@
 services:
   jupyter:
     # image, env, volumes, ports, etc ...
-    image: contransimage
+    image: bballimage
     env_file:
       - .env
     volumes: 
