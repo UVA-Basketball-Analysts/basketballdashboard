@@ -20,4 +20,4 @@ EXPOSE 8888
 EXPOSE 5432
 EXPOSE 8050
 
-CMD ["python", "dashboard/dashboard.py"]
+CMD ["python", "app.py"]

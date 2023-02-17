@@ -9,7 +9,7 @@ services:
       - ./settings.txt:/root/.jupyter/lab/user-settings/@jupyterlab/notebook-extension/tracker.jupyterlab-settings
     ports:
       - "8889:8888"
-#      - "8050:8050"
+      - "8051:8051"
     networks:
      - dbnetwork
 
@@ -20,7 +20,6 @@ services:
       - .env
     volumes: 
       - ./:/UVA-Basketball-Analysts
-      - ./settings.txt:/root/.jupyter/lab/user-settings/@jupyterlab/notebook-extension/tracker.jupyterlab-settings
     ports:
  #     - "8889:8888"
       - "8050:8050"
