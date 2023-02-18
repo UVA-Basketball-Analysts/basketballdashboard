@@ -20,7 +20,7 @@ class NavBarBball():
                             align="center",
                             className="g-0",
                         ),
-                        href="https://plotly.com",
+                        href="/",
                         style={"textDecoration": "none"},
                     ),
                     dbc.Row(
