@@ -7,10 +7,6 @@ from utils.news import bballNews
 newsObject = bballNews()
 newsBox = newsObject.construct_news_pane()
 
-## Dummy Figure
-import plotly.graph_objects as go
-fig = go.Figure(data=[go.Scatter(x=[1, 2, 3], y=[4, 1, 2])])
-
 ## Tabs
 from utils.tabs import BballTabs
 tabObject = BballTabs()
@@ -46,10 +42,7 @@ layout =  html.Div(
                                 width=8),
                     ]
                 ),
-                dbc.Row([
-                    dbc.Col(dcc.Graph(figure=fig),width=6),
-                    dbc.Col(dcc.Graph(figure=fig),width=6)
-                ]),
+                html.Br(),
                 tabs[0],
                 tabs[1]
             ]

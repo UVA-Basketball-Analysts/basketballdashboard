@@ -29,8 +29,8 @@ class NavBarBball():
                             dbc.Collapse(
                                 dbc.Nav(
                                     [
-                                        dbc.NavItem(dbc.NavLink("Home")),
-                                        dbc.NavItem(dbc.NavLink("Page 1")),
+                                        dbc.NavItem(dbc.NavLink(html.A("Home", href="/",style={"textDecoration": "none",'color':'inherit'}))),
+                                        dbc.NavItem(dbc.NavLink(html.A("1Player-NoParam", href="singlePlayer",style={"textDecoration": "none",'color':'inherit'}))),
                                         dbc.NavItem(
                                             dbc.NavLink("Page 2"),
                                             # add an auto margin after page 2 to
