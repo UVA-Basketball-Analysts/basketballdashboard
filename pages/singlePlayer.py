@@ -4,7 +4,6 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 from utils.players.players import Player
 player = Player(1)
-
 import plotly.express as px
 df = pd.DataFrame({
     'Game': [i for i in range(1, 11)] + [i for i in range(1, 11)],

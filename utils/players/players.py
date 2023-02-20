@@ -5,7 +5,36 @@ import numpy as np
 
 class Player():
     def __init__(self, id):
-        self.playerInfo = self.getPlayerInfo(id)
+        if id == -1:
+            self.playerInfo = self.getAllPlayers()
+        else:
+            self.playerInfo = self.getPlayerInfo(id)
+        
+    def getAllPlayers(self):
+        mock_api_call =  [
+            {
+                'Name': 'Max Ryoo',
+                'id': 1,
+                'Team': 'UVA'
+            },
+            {
+                'Name': 'Seth Galluzzi',
+                'id': 2,
+                'Team' : 'UVA'
+            },
+            {
+                'Name': 'Cepehr Alizadeh',
+                'id': 3,
+                'Team' : 'UVA'
+            }, 
+            {
+                'Name' : 'Jonathan Kropko',
+                'id': 4,
+                'Team' : 'UVA'
+            }
+        ]
+        return mock_api_call
+
         
     def getPlayerInfo(self, id):
         ## Dummy Call for Player Information
@@ -19,36 +48,19 @@ class Player():
         ## Randomize Points Made
         points = [random.randint(5, 30) for i in range(0, 10)]
         assists = [random.randint(5, 10) for i in range(0, 10)]
-        players = [
-            {'Fname': 'John',
-             'Lname': 'Smith',
+        
+        ## Mock
+        playerList = self.getAllPlayers()
+        player = [player for player in playerList if player['id'] == id]
+        
+        selectedPlayer = {
+             'Fname': player[0]['Name'].split()[0],
+             'Lname': player[0]['Name'].split()[1],
              'Position': 'Center',
              'Profile' : 'https://hyunsuk-ryoo.com/img/profile.jpg',
              'PlayerId': id,
              'PhysicalInformation' : {'Height': height,'Weight': weight,'Age' : age},
              'Points': points,
              'Assists': assists
-            },
-            {'Fname': 'John2',
-             'Lname': 'Smith2',
-             'Position': 'PF',
-             'Profile' : 'https://hyunsuk-ryoo.com/img/profile.jpg',
-             'PlayerId': id,
-             'PhysicalInformation' : {'Height': height,'Weight': weight,'Age' : age},
-             'Points': points,
-             'Assists': assists
-            },
-            {'Fname': 'John3',
-             'Lname': 'Smith3',
-             'Position': 'PG',
-             'Profile' : 'https://hyunsuk-ryoo.com/img/profile.jpg',
-             'PlayerId': id,
-             'PhysicalInformation' : {'Height': height,'Weight': weight,'Age' : age},
-             'Points': points,
-             'Assists': assists
             }
-        ]
-        random.seed(id)
-        selectedIndex = np.random.randint(0, len(players))
-        selectedPlayer = players[selectedIndex]
         return selectedPlayer

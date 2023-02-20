@@ -21,9 +21,6 @@ class BballTabs():
             'color': 'white',
             'padding': '6px'
         }
-        
-    def hello(self):
-        return 'hi'
     
     def constructTabs(self, num_of_tabs):
         return dcc.Tabs(\
