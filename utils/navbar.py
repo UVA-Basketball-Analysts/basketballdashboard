@@ -30,13 +30,7 @@ class NavBarBball():
                                 dbc.Nav(
                                     [
                                         dbc.NavItem(dbc.NavLink(html.A("Home", href="/",style={"textDecoration": "none",'color':'inherit'}))),
-                                        dbc.NavItem(dbc.NavLink(html.A("Players", href="players",style={"textDecoration": "none",'color':'inherit'}))),
-                                        dbc.NavItem(
-                                            dbc.NavLink(html.A("SinglePlayer", href="/singlePlayer",style={"textDecoration": "none",'color':'inherit'})),
-                                            # add an auto margin after page 2 to
-                                            # push later links to end of nav
-                                            className="me-auto",
-                                        ),
+                                        dbc.NavItem(dbc.NavLink(html.A("Players", href="/players",style={"textDecoration": "none",'color':'inherit'})),className="me-auto",),
                                         dbc.NavItem(dbc.NavLink("Help")),
                                         dbc.NavItem(dbc.NavLink("About"))
                                     ],

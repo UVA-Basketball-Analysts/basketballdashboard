@@ -2,17 +2,24 @@ import dash
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 import pandas as pd
-from utils.players.players import Player
-player = Player(1)
-import plotly.express as px
-df = pd.DataFrame({
-    'Game': [i for i in range(1, 11)] + [i for i in range(1, 11)],
-    'Points' : player.playerInfo['Points'] + player.playerInfo['Assists'],
-    'Type': ['Points' for i in range(1, 11)] + ['Assists' for i in range(1, 11)]
-})
-fig = px.line(df, x='Game', y='Points', color='Type', symbol="Type")
 
-layout = html.Div([
+from dash import html, dcc, callback, Input, Output
+# dash.register_page(__name__)
+dash.register_page(__name__, 
+                   path_template="/singlePlayer/<player_id>")
+from utils.players.players import Player
+
+def layout(player_id=None):
+    player = Player(player_id)
+    import plotly.express as px
+    df = pd.DataFrame({
+        'Game': [i for i in range(1, 11)] + [i for i in range(1, 11)],
+        'Points' : player.playerInfo['Points'] + player.playerInfo['Assists'],
+        'Type': ['Points' for i in range(1, 11)] + ['Assists' for i in range(1, 11)]
+    })
+    fig = px.line(df, x='Game', y='Points', color='Type', symbol="Type")
+
+    return html.Div([
     dbc.Container([
         dbc.Row(
             [

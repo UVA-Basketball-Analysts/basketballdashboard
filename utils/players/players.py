@@ -51,7 +51,7 @@ class Player():
         
         ## Mock
         playerList = self.getAllPlayers()
-        player = [player for player in playerList if player['id'] == id]
+        player = [player for player in playerList if player['id'] == int(id)]
         
         selectedPlayer = {
              'Fname': player[0]['Name'].split()[0],
