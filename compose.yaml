@@ -9,10 +9,22 @@ services:
       - ./settings.txt:/root/.jupyter/lab/user-settings/@jupyterlab/notebook-extension/tracker.jupyterlab-settings
     ports:
       - "8889:8888"
+      - "8051:8051"
+    networks:
+     - dbnetwork
+
+  dashboard:
+    # image, env, volumes, ports, etc ...
+    image: bballdashboard
+    env_file:
+      - .env
+    volumes: 
+      - ./:/UVA-Basketball-Analysts
+    ports:
+ #     - "8889:8888"
       - "8050:8050"
     networks:
      - dbnetwork
- 
  
 networks:
   dbnetwork:
