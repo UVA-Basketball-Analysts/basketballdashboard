@@ -32,16 +32,15 @@ def layout():
             html.H2("Hips"),
             dcc.Graph(id='hips-graph'),
             html.H2("Knees"),
-            #dcc.Graph(id='my-graph',figure=scatter),
+            dcc.Graph(id='knees-graph'),
             html.H2("Ankles"),
-            #dcc.Graph(id='my-graph',figure=scatter)  
+            dcc.Graph(id='ankle-graph')  
         ])
     ])
 @callback(
     Output('hips-graph', 'figure'),
     [Input(component_id='playerid-dropdown', component_property='value')]
 )
-
 def hips(playerid):
     one_athlete = df[df['meta__person__unique_id'].str.contains(playerid)]
     df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|timestamp|hip|HIP|Hip'))
@@ -61,5 +60,57 @@ def hips(playerid):
         yaxis=dict(title='Value')
     )
     fig = go.Figure(data=lines, layout=layout)
+    fig.update_traces(visible="legendonly")
     return fig
 
+@callback(
+    Output('knees-graph', 'figure'),
+    [Input(component_id='playerid-dropdown', component_property='value')]
+)
+def knees(playerid):
+    one_athlete = df[df['meta__person__unique_id'].str.contains(playerid)]
+    df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|timestamp|knee|KNEE|Knee'))
+    lines = []
+    for column in df_hips.columns[5:20]:
+        trace = go.Scatter(
+            x=df_hips['timestamp'],
+            y=df_hips[column],
+            mode='lines',
+            name=column
+        )
+        lines.append(trace)
+
+    layout = go.Layout(
+        title='Clinician Ankle',
+        xaxis=dict(title='Timestamp'),
+        yaxis=dict(title='Value')
+    )
+    fig = go.Figure(data=lines, layout=layout)
+    fig.update_traces(visible="legendonly")
+    return fig
+
+@callback(
+    Output('ankle-graph', 'figure'),
+    [Input(component_id='playerid-dropdown', component_property='value')]
+)
+def ankles(playerid):
+    one_athlete = df[df['meta__person__unique_id'].str.contains(playerid)]
+    df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|timestamp|ankle|ANKLE|Ankle'))
+    lines = []
+    for column in df_hips.columns[5:20]:
+        trace = go.Scatter(
+            x=df_hips['timestamp'],
+            y=df_hips[column],
+            mode='lines',
+            name=column
+        )
+        lines.append(trace)
+
+    layout = go.Layout(
+        title='Clinician Ankle',
+        xaxis=dict(title='Timestamp'),
+        yaxis=dict(title='Value')
+    )
+    fig = go.Figure(data=lines, layout=layout)
+    fig.update_traces(visible="legendonly")
+    return fig
