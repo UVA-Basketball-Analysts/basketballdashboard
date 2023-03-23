@@ -48,34 +48,34 @@ layout =  html.Div(
                                 width=8),
                     ]
                 ),
-                html.Br(),
-                tabs[0],
-                tabs[1]
+                # html.Br(),
+                # tabs[0],
+                # tabs[1]
             ]
         )
     ]
 )
 
-@callback(Output('tabs-content-inline-3', 'children'),
-              Input('tabs-inline', 'value'))
-def render_content(tab):
-    if tab == 'tab-1':
-        return dbc.Row([
-                    dbc.Col(dcc.Graph(figure=fig),width=6),
-                    dbc.Col(dcc.Graph(figure=fig),width=6)
-                ])
-    elif tab == 'tab-2':
-        return html.Div([
-            html.Img(src="https://cdn.vox-cdn.com/thumbor/O-tzXeJOjOWZpeoJP5JHRCajHFs=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/24432116/1247055249.jpg",
-                                        style={
-                                    'max-width': '100%',
-                                    'height': 'auto',
-                                })
-        ])
-    elif tab == 'tab-3':
-        return newsBox
-    elif tab == 'tab-4':
-        return dcc.Markdown(children = '''
-        ## Markdown
-        Yay!
-        ''')
+# @callback(Output('tabs-content-inline-3', 'children'),
+#               Input('tabs-inline', 'value'))
+# def render_content(tab):
+#     if tab == 'tab-1':
+#         return dbc.Row([
+#                     dbc.Col(dcc.Graph(figure=fig),width=6),
+#                     dbc.Col(dcc.Graph(figure=fig),width=6)
+#                 ])
+#     elif tab == 'tab-2':
+#         return html.Div([
+#             html.Img(src="https://cdn.vox-cdn.com/thumbor/O-tzXeJOjOWZpeoJP5JHRCajHFs=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/24432116/1247055249.jpg",
+#                                         style={
+#                                     'max-width': '100%',
+#                                     'height': 'auto',
+#                                 })
+#         ])
+#     elif tab == 'tab-3':
+#         return newsBox
+#     elif tab == 'tab-4':
+#         return dcc.Markdown(children = '''
+#         ## Markdown
+#         Yay!
+#         ''')

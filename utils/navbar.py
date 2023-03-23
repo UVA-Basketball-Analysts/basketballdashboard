@@ -15,7 +15,7 @@ class NavBarBball():
                         dbc.Row(
                             [
                                 dbc.Col(html.Img(src=self.logo_url, height="30px")),
-                                dbc.Col(dbc.NavbarBrand(self.logo_name, className="ms-2")),
+                                dbc.Col(dbc.NavbarBrand(self.logo_name, className="ms-2", style={"color":"white"})),
                             ],
                             align="center",
                             className="g-0",
@@ -29,13 +29,12 @@ class NavBarBball():
                             dbc.Collapse(
                                 dbc.Nav(
                                     [
-                                        dbc.NavItem(dbc.NavLink(html.A("Home", href="/",style={"textDecoration": "none",'color':'inherit'}))),
-                                        dbc.NavItem(dbc.NavLink(html.A("Players", href="/players",style={"textDecoration": "none",'color':'inherit'}))),
-                                        dbc.NavItem(dbc.NavLink(html.A("Cepher", href="/cepehr",style={"textDecoration": "none",'color':'inherit'}))),
-                                        dbc.NavItem(dbc.NavLink(html.A("Seth", href="/seth",style={"textDecoration": "none",'color':'inherit'}))),
-                                        dbc.NavItem(dbc.NavLink(html.A("Workflow", href="/workflow",style={"textDecoration": "none",'color':'inherit'})),className="me-auto",),
-                                        dbc.NavItem(dbc.NavLink("Help")),
-                                        dbc.NavItem(dbc.NavLink("About"))
+                                        dbc.NavItem(dbc.NavLink(html.A("Home", href="/",style={"textDecoration": "none",'color':'white'}))),
+                                        dbc.NavItem(dbc.NavLink(html.A("Players", href="/players",style={"textDecoration": "none",'color':'white'}))),
+                                        dbc.NavItem(dbc.NavLink(html.A("HKA", href="/hka",style={"textDecoration": "none",'color':'white'}))),
+                                        dbc.NavItem(dbc.NavLink(html.A("Workflow", href="/workflow",style={"textDecoration": "none",'color':'white'})),className="me-auto",),
+                                        dbc.NavItem(dbc.NavLink("Help", style={"color":"white"})),
+                                        dbc.NavItem(dbc.NavLink("About", style={"color":"white"}))
                                     ],
                                     # make sure nav takes up the full width for auto
                                     # margin to get applied
@@ -51,7 +50,6 @@ class NavBarBball():
                     ),
                 ],
                 fluid=True,
-            ),
-            dark=True,
-            color="dark",
+            ), 
+            class_name="headerUVA"
         )
