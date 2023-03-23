@@ -11,10 +11,11 @@ from dash import html
 from dash.dependencies import Input, Output
 
 from utils.navbar import NavBarBball
-
+from utils.footer import Footer
 navbarObject = NavBarBball()
 navbar = navbarObject.construct_nav()
-
+footerObject = Footer()
+footer = footerObject.construct_footer()
 import dash_bootstrap_components as dbc
 
 external_stylesheets = [dbc.themes.BOOTSTRAP]
@@ -27,9 +28,14 @@ app = JupyterDash(__name__,
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     navbar, 
-    html.Br(),
-    dash.page_container, 
-])
+    html.Div([
+        html.Br(),
+        dash.page_container, 
+        html.Br(),
+    ],style={"flex":"1"}),
+    footer
+    
+], style={"min-height":"100vh", 'display':'flex', 'flex-direction':'column'})
 
 if __name__ == '__main__':
     app.run_server(host="0.0.0.0", mode='external', debug=True, port=8050)

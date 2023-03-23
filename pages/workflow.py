@@ -17,13 +17,52 @@ df = pd.read_csv("data/ClinicianReport.csv")
 
 df = df.sort_values(['meta__person__unique_id', 'timestamp'])
 
-temp = pd.DataFrame(OrderedDict(
-    [
-        [
-            'Column {}'.format(i + 1), list(range(30))
-        ] for i in range(15)
-    ]
-))
+jump_variable = ["summary__vertical_jump__mobility__loading__hip_flex__right",
+"summary__vertical_jump__mobility__loading__hip_flex__delta",
+"summary__vertical_jump__mobility__loading__knee_flex__left",
+"summary__vertical_jump__mobility__loading__knee_flex__right",
+"summary__vertical_jump__mobility__loading__knee_flex__delta",
+"summary__vertical_jump__mobility__loading__ankle_flex__left",
+"summary__vertical_jump__mobility__loading__ankle_flex__right",
+"summary__vertical_jump__mobility__loading__ankle_flex__delta",
+"summary__vertical_jump__mobility__landing__hip_flex__left",
+"summary__vertical_jump__mobility__landing__hip_flex__right",
+"summary__vertical_jump__mobility__landing__hip_flex__delta",
+"summary__vertical_jump__mobility__landing__knee_flex__left",
+"summary__vertical_jump__mobility__landing__knee_flex__right",
+"summary__vertical_jump__mobility__landing__knee_flex__delta",
+"summary__vertical_jump__mobility__landing__ankle_flex__left",
+"summary__vertical_jump__mobility__landing__ankle_flex__right",
+"summary__vertical_jump__mobility__landing__ankle_flex__delta",
+"summary__vertical_jump__alignment__loading__dyn_val__left",
+"summary__vertical_jump__alignment__loading__dyn_val__right",
+"summary__vertical_jump__alignment__loading__dyn_val__delta",
+"summary__vertical_jump__alignment__landing__dyn_val__left",
+"summary__vertical_jump__alignment__landing__dyn_val__right",
+"summary__vertical_jump__alignment__landing__dyn_val__delta",
+"summary__vertical_jump__performance__grf_takeoff__left",
+"summary__vertical_jump__performance__grf_takeoff__right",
+"summary__vertical_jump__performance__grf_takeoff__delta",
+"summary__vertical_jump__performance__peak_grf__bilateral",
+"summary__vertical_jump__landing_strategy__bilateral",
+"summary__concentric_jump__mobility__loading__hip_flex__left",
+"summary__concentric_jump__mobility__loading__hip_flex__right",
+"summary__concentric_jump__mobility__loading__hip_flex__delta",
+"summary__concentric_jump__mobility__loading__knee_flex__left",
+"summary__concentric_jump__mobility__loading__knee_flex__right",
+"summary__concentric_jump__mobility__loading__knee_flex__delta",
+"summary__concentric_jump__mobility__loading__ankle_flex__left",
+"summary__concentric_jump__mobility__loading__ankle_flex__right",
+"summary__concentric_jump__mobility__loading__ankle_flex__delta",
+"summary__concentric_jump__alignment__loading__dyn_val__left",
+"summary__concentric_jump__alignment__loading__dyn_val__right",
+"summary__concentric_jump__alignment__loading__dyn_val__delta",
+"summary__concentric_jump__performance__jump_height__bilateral",
+"summary__concentric_jump__performance__grf_takeoff__left",
+"summary__concentric_jump__performance__grf_takeoff__right",
+"summary__concentric_jump__performance__grf_takeoff__delta",
+"summary__concentric_jump__landing_strategy__bilateral"]
+
 def layout():
     return html.Div([
         dbc.Container([
@@ -36,30 +75,43 @@ def layout():
             ),
             dbc.Row(
                     [
+                        dbc.Col(html.Div([html.H2([html.Br(),'Squats'], style={'text-align': 'center'})]),width=12),
                         dbc.Col(html.Div([
-                                    html.H4("Bilateral squat"),
+                                    html.H4("Bilateral squat", style={'text-align': 'center'}),
                                     dcc.Graph(id='Bilateral-graph')
                                 ]),
                                 width=6),
                         dbc.Col(html.Div([
-                                    html.H4("Unilateral squat"),
+                                    html.H4("Unilateral squat", style={'text-align': 'center'}),
                                     dcc.Graph(id='Unilateral-graph')
                                 ]),
                                 width=6),
                         dbc.Col(html.Div([
-                                    html.H4("Difference squat"),
+                                    html.H4("Difference squat", style={'text-align': 'center'}),
                                     dcc.Graph(id='difference-graph')
                                 ]),
                                 width=12),
+                        dbc.Col(html.Div([html.H2([html.Br(),'Loading Strategies'], style={'text-align': 'center'})]),width=12),
                         dbc.Col(html.Div([
-                                    html.H4("Loading Strategies"),
+                                    html.H4("Loading Strategies Graph", style={'text-align': 'center'}),
                                     dcc.Graph(id='loading-strat-graph')
                                 ]),
                                 width=5),
                         dbc.Col(html.Div([
-                                    html.H4("Loading Strategies Table"),
+                                    html.H4("Loading Strategies Table", style={'text-align': 'center'}),
                                     html.Div(id = 'loading-strat-table')]),
-                                width=7)
+                                width=7),
+                        dbc.Col(html.Div([html.H2([html.Br(),'Vertical Jump to Concentric Jump'], style={'text-align': 'center'})]),width=12),
+                        dbc.Col(html.Div([html.H4("Variable Selection", style={'text-align': 'center'})]),width=12),
+                        dbc.Col(
+                                    html.Div([
+                                    html.Label('Select Variables:', style={'font-weight': 'bold'}),
+                                    dcc.Dropdown(options=[{'label': i, 'value': i} for i in jump_variable], id='variable-dropdown', style={'width': '600px'}, multi=True)
+                                ], style={'display': 'inline-block', 'vertical-align': 'top'}),
+                            width=4),
+                        dbc.Col(html.Div([
+                                    dcc.Graph(id = 'jump-graph')]),
+                                width=8)
                     ]
                 ),
         ],fluid=True)
@@ -116,4 +168,12 @@ def loading_strat_table(playerid):
 
             )])
                         
-    
+@callback(
+    Output('jump-graph', 'figure'),
+    [
+        Input(component_id='playerid-dropdown', component_property='value'),
+        Input(component_id='variable-dropdown', component_property='value')
+    ]
+)
+def get_jump_plot(playerid, variables):
+    return visualTool.jumps_figure(playerid, variables)

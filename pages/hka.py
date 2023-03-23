@@ -11,7 +11,7 @@ import re
 from dash import html, dcc, callback, Input, Output
 
 
-dash.register_page(__name__, path='/seth')
+dash.register_page(__name__, path='/hka')
 
 ## Read in DF
 df = pd.read_csv("data/ClinicianReport.csv")
@@ -22,7 +22,7 @@ df = df.sort_values(['meta__person__unique_id', 'timestamp'])
 def layout():
     return html.Div([
         dbc.Container([
-            html.H3("Seth's - PAGE"),
+            html.H3("Hips, Knees, Ankles"),
             html.H1("Tales of Dunk and Leg"),
             dcc.Dropdown(
                 id='playerid-dropdown',
@@ -60,7 +60,7 @@ def hips(playerid):
         yaxis=dict(title='Value')
     )
     fig = go.Figure(data=lines, layout=layout)
-    fig.update_traces(visible="legendonly")
+    # fig.update_traces(visible="legendonly")
     return fig
 
 @callback(

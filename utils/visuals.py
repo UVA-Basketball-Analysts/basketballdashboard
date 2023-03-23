@@ -15,7 +15,7 @@ class VisualsTool():
             "meta__person__unique_id",
             "meta__session__session_guid",
             "timestamp",
-            "summary__bilateral_squat__mobility__depth__unit",
+            #"summary__bilateral_squat__mobility__depth__unit",
             "summary__bilateral_squat__mobility__hip__left",
             "summary__bilateral_squat__mobility__hip__right",
             "summary__bilateral_squat__mobility__hip__delta",
@@ -31,7 +31,7 @@ class VisualsTool():
             "summary__bilateral_squat__alignment__dyn_valgus__left",
             "summary__bilateral_squat__alignment__dyn_valgus__right",
             "summary__bilateral_squat__alignment__dyn_valgus__delta",
-            "summary__bilateral_squat__loading_strategy__bilateral"
+            # "summary__bilateral_squat__loading_strategy__bilateral"
         ]
         
         bilateral_df = self.df[bilateral_columns]
@@ -42,7 +42,7 @@ class VisualsTool():
             player_df = bilateral_df
             
         lines = []
-        for column in player_df.columns:
+        for column in player_df.columns[3:]:
             trace = go.Scatter(
                 x=player_df['timestamp'],
                 y=player_df[column],
@@ -94,7 +94,7 @@ class VisualsTool():
             player_df = unilateral_df
             
         lines = []
-        for column in player_df.columns:
+        for column in player_df.columns[3:]:
             trace = go.Scatter(
                 x=player_df['timestamp'],
                 y=player_df[column],
@@ -104,7 +104,7 @@ class VisualsTool():
             lines.append(trace)
 
         layout = go.Layout(
-            title='Clinician Bilateral',
+            title='Clinician Unilateral',
             xaxis=dict(title='Timestamp'),
             yaxis=dict(title='Value')
         )
@@ -169,7 +169,7 @@ class VisualsTool():
             player_df = matching_df
             
         lines = []
-        for column in player_df.columns:
+        for column in player_df.columns[3:]:
             trace = go.Scatter(
                 x=player_df['timestamp'],
                 y=player_df[column],
@@ -238,5 +238,21 @@ class VisualsTool():
         df_transposed['strategies'] = df_transposed['strategies'].str.replace('_', ' ')
 
         return df_transposed 
+    
+    def jumps_figure(self, playerid, variables):
+        if playerid != 'all':
+            user_df = self.df.query("meta__person__unique_id == @playerid")
+        else:
+            user_df = self.df
+        if variables == None:
+            variables = []
+        melted_df = pd.melt(user_df, id_vars=['timestamp'], value_vars=variables)
 
-        # return fig
+        fig1 = px.scatter(melted_df,
+                       x="timestamp",
+                       y="value",
+                       color = "variable")
+
+        # fig1.update_layout(width=1750, height=800, autosize=False)
+
+        return fig1
