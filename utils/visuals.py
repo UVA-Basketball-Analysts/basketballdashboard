@@ -8,7 +8,7 @@ from dash import Dash, dash_table
 
 class VisualsTool():
     def __init__(self):
-        self.df = pd.read_csv("data/ClinicianReport.csv")
+        self.df = pd.read_csv("data/ClinicianReport.csv").sort_values(by="timestamp")
         
     def bilateral(self, playerid):
         bilateral_columns = [

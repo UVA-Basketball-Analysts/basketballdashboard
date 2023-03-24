@@ -10,6 +10,23 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 
+import pandas as pd
+import os
+
+def collapseData():
+    csv_files_clinician = [f for f in os.listdir('data/Athleticism') if f.startswith('report')]
+    list_dfs = [pd.read_csv('data/Athleticism/'+file) for file in csv_files_clinician]
+    athleticism_df = pd.concat(list_dfs, ignore_index=True)
+    athleticism_df.to_csv('data/Athleticism.csv')
+    
+    csv_files = [f for f in os.listdir('data/ClinicianReport') if f.startswith('report')]
+    list_dfs = [pd.read_csv('data/ClinicianReport/'+file) for file in csv_files]
+    clinician_df = pd.concat(list_dfs, ignore_index=True)
+    clinician_df.to_csv('data/ClinicianReport.csv')
+    
+    
+collapseData()
+
 from utils.navbar import NavBarBball
 from utils.footer import Footer
 navbarObject = NavBarBball()

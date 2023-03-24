@@ -66,7 +66,9 @@ jump_variable = ["summary__vertical_jump__mobility__loading__hip_flex__right",
 def layout():
     return html.Div([
         dbc.Container([
-            html.H3("Trainer Workflow"),
+            html.H2("Trainer Workflow", style={'text-align': 'center'}),
+            html.Br(),
+            html.H5("Player"),
             dcc.Dropdown(
                 id='playerid-dropdown',
                 options=[{'label': i, 'value': i} for i in np.concatenate([df['meta__person__unique_id'].unique(), ['all']])],
@@ -80,12 +82,12 @@ def layout():
                                     html.H4("Bilateral squat", style={'text-align': 'center'}),
                                     dcc.Graph(id='Bilateral-graph')
                                 ]),
-                                width=6),
+                                width=12),
                         dbc.Col(html.Div([
                                     html.H4("Unilateral squat", style={'text-align': 'center'}),
                                     dcc.Graph(id='Unilateral-graph')
                                 ]),
-                                width=6),
+                                width=12),
                         dbc.Col(html.Div([
                                     html.H4("Difference squat", style={'text-align': 'center'}),
                                     dcc.Graph(id='difference-graph')
