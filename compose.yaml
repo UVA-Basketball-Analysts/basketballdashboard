@@ -2,8 +2,8 @@ services:
   jupyter:
     # image, env, volumes, ports, etc ...
     image: bballimage
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
     volumes: 
       - ./:/UVA-Basketball-Analysts
       - ./settings.txt:/root/.jupyter/lab/user-settings/@jupyterlab/notebook-extension/tracker.jupyterlab-settings
@@ -16,8 +16,8 @@ services:
   dashboard:
     # image, env, volumes, ports, etc ...
     image: bballdashboard
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
     volumes: 
       - ./:/UVA-Basketball-Analysts
     ports:
