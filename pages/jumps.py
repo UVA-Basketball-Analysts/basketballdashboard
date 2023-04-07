@@ -11,7 +11,7 @@ from collections import OrderedDict
 
 from dash import html, dcc, callback, Input, Output
 # dash.register_page(__name__)
-dash.register_page(__name__, path='/workflow')
+dash.register_page(__name__, path='/jumps')
 ## Read in Data
 df = pd.read_csv("data/ClinicianReport.csv")
 
@@ -66,7 +66,7 @@ jump_variable = ["summary__vertical_jump__mobility__loading__hip_flex__right",
 def layout():
     return html.Div([
         dbc.Container([
-            html.H2("Trainer Workflow", style={'text-align': 'center'}),
+            html.H2("Jumps", style={'text-align': 'center'}),
             html.Br(),
             html.H5("Player"),
             dcc.Dropdown(
@@ -77,32 +77,6 @@ def layout():
             ),
             dbc.Row(
                     [
-                        dbc.Col(html.Div([html.H2([html.Br(),'Squats'], style={'text-align': 'center'})]),width=12),
-                        dbc.Col(html.Div([
-                                    html.H4("Bilateral squat", style={'text-align': 'center'}),
-                                    dcc.Graph(id='Bilateral-graph')
-                                ]),
-                                width=12),
-                        dbc.Col(html.Div([
-                                    html.H4("Unilateral squat", style={'text-align': 'center'}),
-                                    dcc.Graph(id='Unilateral-graph')
-                                ]),
-                                width=12),
-                        dbc.Col(html.Div([
-                                    html.H4("Difference squat", style={'text-align': 'center'}),
-                                    dcc.Graph(id='difference-graph')
-                                ]),
-                                width=12),
-                        dbc.Col(html.Div([html.H2([html.Br(),'Loading Strategies'], style={'text-align': 'center'})]),width=12),
-                        dbc.Col(html.Div([
-                                    html.H4("Loading Strategies Graph", style={'text-align': 'center'}),
-                                    dcc.Graph(id='loading-strat-graph')
-                                ]),
-                                width=5),
-                        dbc.Col(html.Div([
-                                    html.H4("Loading Strategies Table", style={'text-align': 'center'}),
-                                    html.Div(id = 'loading-strat-table')]),
-                                width=7),
                         dbc.Col(html.Div([html.H2([html.Br(),'Vertical Jump to Concentric Jump'], style={'text-align': 'center'})]),width=12),
                         dbc.Col(html.Div([html.H4("Variable Selection", style={'text-align': 'center'})]),width=12),
                         dbc.Col(
@@ -118,57 +92,6 @@ def layout():
                 ),
         ],fluid=True)
     ])
-
-@callback(
-    Output('Bilateral-graph', 'figure'),
-    [Input(component_id='playerid-dropdown', component_property='value')]
-)
-def get_bilateral(playerid):
-    return visualTool.bilateral(playerid)
-
-@callback(
-    Output('Unilateral-graph', 'figure'),
-    [Input(component_id='playerid-dropdown', component_property='value')]
-)
-def get_unilateral(playerid):
-    return visualTool.unilateral(playerid)
-
-@callback(
-    Output('difference-graph', 'figure'),
-    [Input(component_id='playerid-dropdown', component_property='value')]
-)
-def get_bivsuni(playerid):
-    return visualTool.bivsuni(playerid)
-
-
-@callback(
-    Output('loading-strat-graph', 'figure'),
-    [Input(component_id='playerid-dropdown', component_property='value')]
-)
-def get_loading_strategy(playerid):
-    return visualTool.loading_strategy(playerid)
-
-@callback(
-    Output(component_id='loading-strat-table', component_property='children'),
-    [Input(component_id='playerid-dropdown', component_property='value')]
-)
-def loading_strat_table(playerid):
-    df_transposed = visualTool.loading_strategy_table(playerid) 
-    return html.Div(
-        [dash_table.DataTable(
-                                style_data={
-                                        'whiteSpace': 'normal',
-                                        'height': 'auto',
-                                    },
-                                data=df_transposed.to_dict('records'),
-                                columns=[{'name': i, 'id': i,} for i in df_transposed.columns],
-                                fixed_rows={'headers': True},
-                                style_cell={
-                                    'minWidth': 100, 'maxWidth': 100, 'width': 100
-                                },
-                                style_table={'overflowX': 'auto'},
-
-            )])
                         
 @callback(
     Output('jump-graph', 'figure'),

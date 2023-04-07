@@ -7,11 +7,6 @@ from utils.news import bballNews
 newsObject = bballNews()
 newsBox = newsObject.construct_news_pane()
 
-## Tabs
-from utils.tabs import BballTabs
-tabObject = BballTabs()
-tabs = BballTabs.constructTabs(tabObject,4)
-
 from dash import html, dcc, callback, Input, Output
 dash.register_page(__name__, path='/')
 
@@ -48,9 +43,6 @@ layout =  html.Div(
                                 width=8),
                     ]
                 ),
-                # html.Br(),
-                # tabs[0],
-                # tabs[1]
             ]
         )
     ]

@@ -30,9 +30,10 @@ class NavBarBball():
                                 dbc.Nav(
                                     [
                                         dbc.NavItem(dbc.NavLink(html.A("Home", href="/",style={"textDecoration": "none",'color':'white'}))),
-                                        dbc.NavItem(dbc.NavLink(html.A("Players", href="/players",style={"textDecoration": "none",'color':'white'}))),
                                         dbc.NavItem(dbc.NavLink(html.A("HKA", href="/hka",style={"textDecoration": "none",'color':'white'}))),
-                                        dbc.NavItem(dbc.NavLink(html.A("Workflow", href="/workflow",style={"textDecoration": "none",'color':'white'})),className="me-auto",),
+                                        dbc.NavItem(dbc.NavLink(html.A("Jumps", href="/jumps",style={"textDecoration": "none",'color':'white'}))),
+                                        dbc.NavItem(dbc.NavLink(html.A("Loading Strategies", href="/loadingstrats",style={"textDecoration": "none",'color':'white'}))),
+                                        dbc.NavItem(dbc.NavLink(html.A("Squats", href="/squats",style={"textDecoration": "none",'color':'white'})),className="me-auto",),
                                         dbc.NavItem(dbc.NavLink("Help", style={"color":"white"})),
                                         dbc.NavItem(dbc.NavLink("About", style={"color":"white"}))
                                     ],
