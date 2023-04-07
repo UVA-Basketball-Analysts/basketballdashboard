@@ -2,7 +2,7 @@ from dash import dcc
 from dash import html
 
 
-class BballTabs():
+class GenericTabs():
     def __init__(self):
         self.tabs_styles = {
             'height': '44px'
@@ -22,13 +22,13 @@ class BballTabs():
             'padding': '6px'
         }
     
-    def constructTabs(self, num_of_tabs):
+    def constructTabs(self, categories):
         return dcc.Tabs(\
             id='tabs-inline',\
             value='tab-1',\
-            children = [dcc.Tab(label='Tab ' + str(i),\
-                                value = 'tab-'+str(i),\
+            children = [dcc.Tab(label=i,\
+                                value = 'tab-'+i,\
                                 style=self.tab_style,\
-                                selected_style=self.tab_selected_style) for i in range(1,num_of_tabs + 1)],\
+                                selected_style=self.tab_selected_style) for i in categories],\
                         style=self.tabs_styles \
             ),html.Div(id='tabs-content-inline-3')

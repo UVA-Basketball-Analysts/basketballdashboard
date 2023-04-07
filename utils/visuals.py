@@ -5,11 +5,14 @@ import plotly.graph_objects as go
 import plotly.figure_factory as ff
 import re
 from dash import Dash, dash_table
+from datetime import datetime
 
 class VisualsTool():
     def __init__(self):
-        self.df = pd.read_csv("data/ClinicianReport.csv").sort_values(by="timestamp")
-        
+        temp = pd.read_csv("data/ClinicianReport.csv").sort_values(by="timestamp", ascending=True)
+        temp['timestamp'] = [datetime.strptime(time, '%Y.%m.%d %H:%M:%S') for time in temp['timestamp']]
+        self.df = temp
+
     def bilateral(self, playerid):
         bilateral_columns = [
             "meta__person__unique_id",
@@ -42,11 +45,13 @@ class VisualsTool():
             player_df = bilateral_df
             
         lines = []
+        # fig = go.Figure()
         for column in player_df.columns[3:]:
-            trace = go.Scatter(
+            # fig.add_trace(go.Bar(x=player_df['timestamp'], y=player_df[column], name=column))
+            trace = go.Bar(
                 x=player_df['timestamp'],
                 y=player_df[column],
-                mode='lines',
+                # mode='lines+markers',
                 name=column
             )
             lines.append(trace)
@@ -54,7 +59,11 @@ class VisualsTool():
         layout = go.Layout(
             title='Clinician Bilateral',
             xaxis=dict(title='Timestamp'),
-            yaxis=dict(title='Value')
+            yaxis=dict(title='Value'),
+            # xaxis_range=[
+            #                 self.df['timestamp'],
+            #                 self.df['timestamp'][len(self.df) - 1]
+            #             ]
         )
         fig = go.Figure(data=lines, layout=layout)
         # fig.update_traces(visible="legendonly")
@@ -98,7 +107,7 @@ class VisualsTool():
             trace = go.Scatter(
                 x=player_df['timestamp'],
                 y=player_df[column],
-                mode='lines',
+                mode='lines+markers',
                 name=column
             )
             lines.append(trace)
@@ -106,7 +115,11 @@ class VisualsTool():
         layout = go.Layout(
             title='Clinician Unilateral',
             xaxis=dict(title='Timestamp'),
-            yaxis=dict(title='Value')
+            yaxis=dict(title='Value'),
+            # xaxis_range=[
+            #                 self.df['timestamp'],
+            #                 self.df['timestamp'][len(self.df) - 1]
+            #             ]
         )
         fig = go.Figure(data=lines, layout=layout)
         # fig.update_traces(visible="legendonly")
@@ -173,7 +186,7 @@ class VisualsTool():
             trace = go.Scatter(
                 x=player_df['timestamp'],
                 y=player_df[column],
-                mode='lines',
+                mode='lines+markers',
                 name=column
             )
             lines.append(trace)
@@ -181,7 +194,11 @@ class VisualsTool():
         layout = go.Layout(
             title='Clinician Difference',
             xaxis=dict(title='Timestamp'),
-            yaxis=dict(title='Value')
+            yaxis=dict(title='Value'),
+            xaxis_range=[
+                            self.df['timestamp'],
+                            self.df['timestamp'][len(self.df) - 1]
+                        ]
         )
         fig = go.Figure(data=lines, layout=layout)
         # fig.update_traces(visible="legendonly")
@@ -204,6 +221,10 @@ class VisualsTool():
             title='Loading Strategies',
             xaxis=dict(title='Timestamp'),
             yaxis=dict(title='Strategy'),
+            xaxis_range=[
+                            self.df['timestamp'],
+                            self.df['timestamp'][len(self.df) - 1]
+                        ]
             # legend=dict(orientation="h")
         )
 
@@ -216,11 +237,12 @@ class VisualsTool():
             one_athlete = self.df[self.df['meta__person__unique_id'].str.contains(playerid)]
         else:
             one_athlete = self.df
+                                    
         df_strat = one_athlete.filter(regex = re.compile(r'timestamp|summary__bilateral_squat__loading_strategy__bilateral|summary__unilateral_squat__loading_strategy__left_leg|summary__unilateral_squat__loading_strategy__right_leg|summary__lateral_lunge__loading_strategy__left_leg|summary__lateral_lunge__loading_strategy__right_leg'))
 
         df_strat = df_strat.drop('meta__session__session_timestamp', axis=1)
 
-
+        df_strat['timestamp'] = [str(time) for time in df_strat['timestamp']]
         df_strat.set_index('timestamp', inplace=True)
 
 
@@ -252,6 +274,10 @@ class VisualsTool():
                        x="timestamp",
                        y="value",
                        color = "variable")
+        fig1.update_layout(xaxis_range=[
+                            self.df['timestamp'],
+                            self.df['timestamp'][len(self.df) - 1]
+                        ])
 
         # fig1.update_layout(width=1750, height=800, autosize=False)
 
