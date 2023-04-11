@@ -47,7 +47,7 @@ def hips(playerid):
     lines = []
     for column in df_hips.columns[4:20]:
         trace = go.Scatter(
-            x=df_hips['meta__session__session_datetime],
+            x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
             mode='lines',
             name=column

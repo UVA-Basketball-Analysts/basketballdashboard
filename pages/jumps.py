@@ -17,7 +17,7 @@ df = pd.read_csv("data/ClinicianReport.csv")
 
 df = df.sort_values(['meta__person__unique_id', 'timestamp'])
 
-jump_variable = ["summary__vertical_jump__mobility__loading__hip_flex__right",
+jump_variable = [visualTool.column_names[i] for i in ["summary__vertical_jump__mobility__loading__hip_flex__right",
 "summary__vertical_jump__mobility__loading__hip_flex__delta",
 "summary__vertical_jump__mobility__loading__knee_flex__left",
 "summary__vertical_jump__mobility__loading__knee_flex__right",
@@ -61,7 +61,9 @@ jump_variable = ["summary__vertical_jump__mobility__loading__hip_flex__right",
 "summary__concentric_jump__performance__grf_takeoff__left",
 "summary__concentric_jump__performance__grf_takeoff__right",
 "summary__concentric_jump__performance__grf_takeoff__delta",
-"summary__concentric_jump__landing_strategy__bilateral"]
+"summary__concentric_jump__landing_strategy__bilateral"]]
+
+
 
 def layout():
     return html.Div([
