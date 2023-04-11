@@ -16,7 +16,7 @@ dash.register_page(__name__, path='/hka')
 ## Read in DF
 df = pd.read_csv("data/ClinicianReport.csv")
 
-df = df.sort_values(['meta__person__unique_id', 'timestamp'])
+df = df.sort_values(['meta__person__unique_id', 'meta__session__session_datetime'])
 
 ## Define Layout
 def layout():
@@ -43,11 +43,11 @@ def layout():
 )
 def hips(playerid):
     one_athlete = df[df['meta__person__unique_id'].str.contains(playerid)]
-    df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|timestamp|hip|HIP|Hip'))
+    df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|meta__session__session_datetime|hip|HIP|Hip'))
     lines = []
-    for column in df_hips.columns[5:20]:
+    for column in df_hips.columns[4:20]:
         trace = go.Scatter(
-            x=df_hips['timestamp'],
+            x=df_hips['meta__session__session_datetime],
             y=df_hips[column],
             mode='lines',
             name=column
@@ -69,11 +69,11 @@ def hips(playerid):
 )
 def knees(playerid):
     one_athlete = df[df['meta__person__unique_id'].str.contains(playerid)]
-    df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|timestamp|knee|KNEE|Knee'))
+    df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|meta__session__session_datetime|knee|KNEE|Knee'))
     lines = []
-    for column in df_hips.columns[5:20]:
+    for column in df_hips.columns[4:20]:
         trace = go.Scatter(
-            x=df_hips['timestamp'],
+            x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
             mode='lines',
             name=column
@@ -95,11 +95,11 @@ def knees(playerid):
 )
 def ankles(playerid):
     one_athlete = df[df['meta__person__unique_id'].str.contains(playerid)]
-    df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|timestamp|ankle|ANKLE|Ankle'))
+    df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|meta__session__session_datetime|ankle|ANKLE|Ankle'))
     lines = []
-    for column in df_hips.columns[5:20]:
+    for column in df_hips.columns[4:20]:
         trace = go.Scatter(
-            x=df_hips['timestamp'],
+            x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
             mode='lines',
             name=column
