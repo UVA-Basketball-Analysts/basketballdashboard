@@ -48,7 +48,7 @@ def hips(playerid):
         trace = go.Scatter(
             x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
-            mode='lines',
+            mode='markers',
             name=column
         )
         lines.append(trace)
@@ -74,7 +74,7 @@ def knees(playerid):
         trace = go.Scatter(
             x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
-            mode='lines',
+            mode='markers',
             name=column
         )
         lines.append(trace)
@@ -100,7 +100,7 @@ def ankles(playerid):
         trace = go.Scatter(
             x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
-            mode='lines',
+            mode='markers',
             name=column
         )
         lines.append(trace)
