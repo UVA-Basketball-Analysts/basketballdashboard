@@ -18,12 +18,13 @@ df = pd.read_csv("data/ClinicianReport.csv")
 
 df = df.sort_values(['meta__person__unique_id', 'meta__session__session_datetime'])
 
+
+
 ## Define Layout
 def layout():
     return html.Div([
         dbc.Container([
             html.H3("Hips, Knees, Ankles"),
-            html.H1("Tales of Dunk and Leg"),
             dcc.Dropdown(
                 id='playerid-dropdown',
                 options=[{'label': i, 'value': i} for i in df['meta__person__unique_id'].unique()],
@@ -45,11 +46,11 @@ def hips(playerid):
     one_athlete = df[df['meta__person__unique_id'].str.contains(playerid)]
     df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|meta__session__session_datetime|hip|HIP|Hip'))
     lines = []
-    for column in df_hips.columns[4:20]:
+    for column in df_hips.columns[4:]:
         trace = go.Scatter(
             x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
-            mode='lines',
+            mode='markers',
             name=column
         )
         lines.append(trace)
@@ -60,7 +61,7 @@ def hips(playerid):
         yaxis=dict(title='Value')
     )
     fig = go.Figure(data=lines, layout=layout)
-    # fig.update_traces(visible="legendonly")
+    fig.update_traces(visible="legendonly")
     return fig
 
 @callback(
@@ -71,7 +72,7 @@ def knees(playerid):
     one_athlete = df[df['meta__person__unique_id'].str.contains(playerid)]
     df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|meta__session__session_datetime|knee|KNEE|Knee'))
     lines = []
-    for column in df_hips.columns[4:20]:
+    for column in df_hips.columns[4:]:
         trace = go.Scatter(
             x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
@@ -97,7 +98,7 @@ def ankles(playerid):
     one_athlete = df[df['meta__person__unique_id'].str.contains(playerid)]
     df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|meta__session__session_datetime|ankle|ANKLE|Ankle'))
     lines = []
-    for column in df_hips.columns[4:20]:
+    for column in df_hips.columns[4:]:
         trace = go.Scatter(
             x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
