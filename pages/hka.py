@@ -22,7 +22,7 @@ df = df.sort_values(['meta__person__unique_id', 'meta__session__session_datetime
 def layout():
     return html.Div([
         dbc.Container([
-            html.H3("Hips, Knees, Ankles"),
+            html.H1("Hips, Knees, Ankles"),
             dcc.Dropdown(
                 id='playerid-dropdown',
                 options=[{'label': i, 'value': i} for i in df['meta__person__unique_id'].unique()],
