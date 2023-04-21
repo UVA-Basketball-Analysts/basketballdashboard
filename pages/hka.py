@@ -44,7 +44,7 @@ def hips(playerid):
     one_athlete = df[df['meta__person__unique_id'].str.contains(playerid)]
     df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|meta__session__session_datetime|hip|HIP|Hip'))
     lines = []
-    for column in df_hips.columns[4:20]:
+    for column in df_hips.columns[4:]:
         trace = go.Scatter(
             x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
@@ -70,7 +70,7 @@ def knees(playerid):
     one_athlete = df[df['meta__person__unique_id'].str.contains(playerid)]
     df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|meta__session__session_datetime|knee|KNEE|Knee'))
     lines = []
-    for column in df_hips.columns[4:20]:
+    for column in df_hips.columns[4:]:
         trace = go.Scatter(
             x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
@@ -96,7 +96,7 @@ def ankles(playerid):
     one_athlete = df[df['meta__person__unique_id'].str.contains(playerid)]
     df_hips = one_athlete.filter(regex = re.compile(r'meta__person__unique_id|meta__session__session_guid|meta__session__session_datetime|ankle|ANKLE|Ankle'))
     lines = []
-    for column in df_hips.columns[4:20]:
+    for column in df_hips.columns[4:]:
         trace = go.Scatter(
             x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
