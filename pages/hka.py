@@ -59,7 +59,7 @@ def hips(playerid):
         yaxis=dict(title='Value')
     )
     fig = go.Figure(data=lines, layout=layout)
-    # fig.update_traces(visible="legendonly")
+    fig.update_traces(visible="legendonly")
     return fig
 
 @callback(
