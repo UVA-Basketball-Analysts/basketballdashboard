@@ -365,3 +365,50 @@ class VisualsTool():
         # fig1.update_layout(width=1750, height=800, autosize=False)
 
         return fig1
+    
+    
+    
+class VisualTools2():
+    def __init__(self):
+        
+        
+        temp = pd.read_csv("data/ClinicianReport.csv")
+        
+        
+        temp2 = pd.read_csv("data/Athleticism.csv")
+        
+        df = pd.merge(temp, temp2, on=['meta__session__session_guid'], how='outer')
+
+
+        df['meta__person__unique_id'] = df.apply(lambda row: row['meta__person__unique_id_x'] if pd.notnull(row['meta__person__unique_id_x']) else row['meta__person__unique_id_y'], axis=1)
+
+        df = df.sort_values(['meta__session__session_datetime'])
+        
+       
+        self.df = df
+    
+    
+    def big_figure(self, playerid, variables1,variables2):
+        
+        
+        if playerid != 'all':
+            user_df = self.df.query("meta__person__unique_id == @playerid")
+        else:
+            user_df = self.df
+        if variables1 == None or variables2 == None:
+            variables1 = []
+            variables2 =[]
+        melted_df = pd.melt(self.df, id_vars=['meta__session__session_datetime'], value_vars=variables1+variables2)
+
+        fig1 = px.scatter(melted_df,
+                       x="meta__session__session_datetime",
+                       y="value",
+                       color = "variable")
+        fig1.update_layout(xaxis_range=[
+                            self.df['meta__session__session_datetime'],
+                            self.df['meta__session__session_datetime'][len(self.df) - 1]
+                        ])
+
+        # fig1.update_layout(width=1750, height=800, autosize=False)
+
+        return fig1    
