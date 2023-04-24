@@ -14,8 +14,8 @@ import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
 import plotly.figure_factory as ff
 ## Import classes for visuals
-from utils.visuals import VisualTools2
-visualTool = VisualTools2()
+from utils.visuals import VisualToolsCombined
+visualTool = VisualToolsCombined()
 
 from collections import OrderedDict
 
