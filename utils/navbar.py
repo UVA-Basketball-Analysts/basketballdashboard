@@ -31,6 +31,7 @@ class NavBarBball():
                                     [
                                         dbc.NavItem(dbc.NavLink(html.A("Home", href="/",style={"textDecoration": "none",'color':'white'}))),
                                         dbc.NavItem(dbc.NavLink(html.A("HKA", href="/hka",style={"textDecoration": "none",'color':'white'}))),
+                                        dbc.NavItem(dbc.NavLink(html.A("Athleticism v Clinician Report", href="/ClinicianvAthleticism",style={"textDecoration": "none",'color':'white'}))),
                                         dbc.NavItem(dbc.NavLink(html.A("Jumps", href="/jumps",style={"textDecoration": "none",'color':'white'}))),
                                         dbc.NavItem(dbc.NavLink(html.A("Loading Strategies", href="/loadingstrats",style={"textDecoration": "none",'color':'white'}))),
                                         dbc.NavItem(dbc.NavLink(html.A("Squats", href="/squats",style={"textDecoration": "none",'color':'white'})),className="me-auto",),
