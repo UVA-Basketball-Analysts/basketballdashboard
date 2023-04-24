@@ -24,7 +24,7 @@ df = df.sort_values(['meta__person__unique_id', 'meta__session__session_datetime
 def layout():
     return html.Div([
         dbc.Container([
-            html.H3("Hips, Knees, Ankles"),
+            html.H1("Hips, Knees, Ankles"),
             dcc.Dropdown(
                 id='playerid-dropdown',
                 options=[{'label': i, 'value': i} for i in df['meta__person__unique_id'].unique()],
@@ -76,7 +76,7 @@ def knees(playerid):
         trace = go.Scatter(
             x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
-            mode='lines',
+            mode='markers',
             name=column
         )
         lines.append(trace)
@@ -102,7 +102,7 @@ def ankles(playerid):
         trace = go.Scatter(
             x=df_hips['meta__session__session_datetime'],
             y=df_hips[column],
-            mode='lines',
+            mode='markers',
             name=column
         )
         lines.append(trace)
