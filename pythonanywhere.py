@@ -37,7 +37,7 @@ import dash_bootstrap_components as dbc
 
 external_stylesheets = [dbc.themes.BOOTSTRAP]
 
-app = Dash(__name__, 
+app = JupyterDash(__name__, 
                   external_stylesheets=external_stylesheets,
                   suppress_callback_exceptions=True, use_pages=True)
 
@@ -55,4 +55,4 @@ app.layout = html.Div([
 ], style={"min-height":"100vh", 'display':'flex', 'flex-direction':'column'})
 
 if __name__ == '__main__':
-    app.run_server(host="0.0.0.0",debug=True, port=8050)
+    app.run_server(host="0.0.0.0", mode='external', debug=True, port=8050)

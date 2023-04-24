@@ -14,7 +14,7 @@ from dash import html, dcc, callback, Input, Output
 dash.register_page(__name__, path='/hka')
 
 ## Read in DF
-df = pd.read_csv("data/ClinicianReport.csv")
+df = pd.read_csv("syntheticdata/synthetic_data.csv")
 
 df = df.sort_values(['meta__person__unique_id', 'meta__session__session_datetime'])
 

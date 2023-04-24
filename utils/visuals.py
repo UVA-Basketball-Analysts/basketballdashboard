@@ -9,7 +9,7 @@ from datetime import datetime
 
 class VisualsTool():
     def __init__(self):
-        temp = pd.read_csv("data/ClinicianReport.csv").sort_values(by="meta__session__session_datetime", ascending=True)
+        temp = pd.read_csv("syntheticdata/synthetic_data.csv").sort_values(by="meta__session__session_datetime", ascending=True)
         temp['meta__session__session_datetime'] = [datetime.strptime(time, '%Y.%m.%d %H:%M:%S') for time in temp['meta__session__session_datetime']]
         self.column_names = {
                                 'summary__bilateral_squat__mobility__depth__unit': 'unit__depth__bilateral_squat',
